@@ -1,0 +1,2 @@
+# Text mining
+The text mining library here provides a way to easily produce topics for documents. Python is the language used for generating the topics, but bindings for communication to the Python service are provided for Java as well as Javascript.
