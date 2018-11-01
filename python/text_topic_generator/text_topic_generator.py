@@ -1,10 +1,9 @@
-from text_topic_generator.grpc_protos import topicgeneration_pb2_grpc as gen_grpc, topicgeneration_pb2 as gen
-from . import topic_gen_model as model
+from text_topic_generator.grpc_protos.topic_gen import topicgeneration_pb2_grpc as gen_grpc, topicgeneration_pb2 as gen
 
 
-class TopicGenerator(gen_grpc.TopicGenerationServicer):
-    def __init__(self):
-        self.model = model.TopicModelling()
+class GrpcTopicHandler(gen_grpc.TopicGenerationServicer):
+    def __init__(self, topic_model):
+        self.model = topic_model
 
     def GenerateTopicsDirect(self, loc, context):
         topics = self.generate(loc)
