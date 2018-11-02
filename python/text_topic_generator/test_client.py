@@ -1,7 +1,6 @@
 from __future__ import print_function
 import grpc
-import topicgeneration_pb2 as gen
-import topicgeneration_pb2_grpc as gen_grpc
+from text_topic_generator.grpc_protos.topic_gen import topicgeneration_pb2_grpc as gen_grpc, topicgeneration_pb2 as gen
 
 
 def run():
