@@ -1,0 +1,20 @@
+{
+  "name": "text-mining-js",
+  "version": "1.0.0",
+  "description": "Text mining JavaScript module. Presents the user with a GUI to display information about text data",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Blake Ordway",
+  "license": "ISC",
+  "dependencies": {
+    "animejs": "^2.2.0",
+    "async": "^2.6.1",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "mo-js": "^0.288.2",
+    "npm": "^6.4.1",
+    "socket.io": "^2.1.1"
+  }
+}
