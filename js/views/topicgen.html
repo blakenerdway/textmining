@@ -1,6 +1,9 @@
 <html>
   <head>
-    <script src="/animejs/anime.min.js"></script>
+    <link rel="stylesheet" href="https://rawgit.com/enyo/dropzone/master/dist/dropzone.css">
+
+    <script type="text/javascript" src="/animejs/anime.min.js"></script>
+    <script type="text/javascript" src="/dropzone/dist/min/dropzone.min.js"></script>
     <script type="text/javascript">
     function test(){
       anime({
@@ -34,14 +37,31 @@
   direction: 'alternate'
 });
 }
-window.onload = test;
     </script>
+
+    <script type="text/javascript">
+    Dropzone.options.dropzone = {
+        paramName: 'file',
+        init: function() {
+            this.on('success', function( file, resp ){
+              console.log(file);
+              console.log(resp);
+              test();
+        });
+      }
+    }
+</script>
   </head>
   <body>
     <p>Here we do our topic generation</p>
+    <form id="dropzone" action="/topicupload" class="dropzone" enctype="multipart/form-data">
+      <div class="fallback">
+        <input name="file" type="file" multiple />
+      </div>
+    </form>
     <section>
-  <article>
-<svg width="252px" height="94px" viewBox="3 11 252 94" version="1.1" style="margin:auto" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <article>
+        <svg width="252px" height="94px" viewBox="3 11 252 94" version="1.1" style="margin:auto" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
     <desc>Created with Sketch.</desc>
     <defs></defs>

@@ -137,6 +137,9 @@ local.properties
 *.jfm
 *.pfx
 *.publishsettings
+
+#JS related
+uploads/
 node_modules/
 
 

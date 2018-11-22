@@ -2,7 +2,7 @@ from concurrent import futures
 import time
 import grpc
 
-from text_topic_generator.grpc_protos.topic_gen import test_gen, topicgeneration_pb2_grpc as gen_grpc
+from grpc_protos.topic_gen import test_gen, topicgeneration_pb2_grpc as gen_grpc
 
 
 class GrpcServer:

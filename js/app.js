@@ -4,6 +4,26 @@ var app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 var async = require('async');
+var mkdirp = require('mkdirp');
+var multer = require("multer");
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    var dest = 'uploads/' + Date.now() + '/';
+    mkdirp.sync(dest);
+    cb(null, dest);
+  }
+});
+
+var upload = multer({storage: storage });
+
+var PROTO_PATH = '../protos/protobuf/topicgeneration.proto';
+
+var grpc = require('grpc');
+var protoLoader = require('@grpc/proto-loader');
+
+var packageDefinition = protoLoader.loadSync(PROTO_PATH, {keepCase: true, longs: String, enums: String, defaults: true, oneofs: true});
+var topic_gen_proto = grpc.loadPackageDefinition(packageDefinition).grpc.document;
+var client = new topic_gen_proto.TopicGeneration('localhost:50051', grpc.credentials.createInsecure());
 
 
 // Express configuration
@@ -22,6 +42,18 @@ app.get('/', function(req, res) {
 app.get('/topicgen', function(req, res){
   res.render('topicgen', {title: 'Topic generation'});
 });
+
+app.post("/topicupload", upload.single('file'), function(req, res, next){
+     var loc = {location: req.file.destination};
+     client.GenerateTopicsDirect(loc, function(err, response) {
+       if (response !== null && response !== undefined) {
+         console.log('Here\'s a quick test: ', response.message);
+       }
+     });
+
+    return res.status(200).send(req.file);
+});
+
 
 // Create a function at '/' that receives a GET request and returns a response
 app.get('/summarygen', function(req, res){
