@@ -22,6 +22,7 @@ sudo apt-get install python3.6
 ```
 
 <b> NodeJS </b>
+
 Some widely-used Linux packages are used by NPM as dependencies for the packages. One such package is `build-essential`, installed as follows:
 ```
 sudo apt install build-essential

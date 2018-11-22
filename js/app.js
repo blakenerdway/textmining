@@ -1,4 +1,5 @@
 var config = require('./public/jsons/config');
+var path = require('path')
 var express = require('express');
 var app = express();
 var server = require('http').createServer(app);
@@ -46,12 +47,18 @@ app.get('/topicgen', function(req, res){
 app.post("/topicupload", upload.single('file'), function(req, res, next){
      var loc = {location: req.file.destination};
      client.GenerateTopicsDirect(loc, function(err, response) {
-       if (response !== null && response !== undefined) {
-         console.log('Here\'s a quick test: ', response.message);
+       if (err){
+         console.log(err);
+       }
+       if (response) {
+         var obj = {
+           topics: response.topics
+        };
+
+         res.send(JSON.stringify(obj));
+         console.log('Received from python: ', response.topics);
        }
      });
-
-    return res.status(200).send(req.file);
 });
 
 
@@ -62,3 +69,12 @@ app.get('/summarygen', function(req, res){
 
 // Listen on port 3000
 server.listen(3000, '0.0.0.0');
+
+
+function sendTopics(topics){
+  io.sockets.emit(topics); //send to all clients not the best for right now
+}
+
+function sendSummary(summary){
+
+}
