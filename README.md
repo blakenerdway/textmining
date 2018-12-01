@@ -4,6 +4,17 @@ The text mining library here provides a way to easily produce topics for documen
 ## Installing
 This project has been tested using Python 3.6.4, and should use any version >= Python 3.6. NPM and NodeJS are used to run the server for the GUI of the project. Instructions for installation will be provided below. If you do have Python3 installed already, you can check your version by typing in a console: `python3 --version`. If it is not >= 3.6, I recommend upgrading as it has not been tested with any other versions of Python.
 
+You will need to install the following python pacakges:
+`pip install grpcio`
+`pip install grpcio-tools googleapis-common-protos`
+
+*** Note: if the `googleapis-common-protos` fail with an error: `Command "python setup.py egg_info" failed with error code 1`, you will need to also do the following [pip update](https://github.com/googleapis/google-cloud-python/issues/3884#issuecomment-325161411):
+`pip install --upgrade setuptools` 
+and then you can do
+`pip install googleapis-common-protos`
+
+
+
 ### Linux
 <b> Python </b>
 
@@ -63,4 +74,4 @@ brew install node
 ```
 
 ### Windows
-No new dependencies for Windows are needed, but since this release has not been tested on Windows, no installation instructions will be provided.
+It seems that python 3.6.1 is needed due to an issue with Protobuf. (see here)[https://github.com/protocolbuffers/protobuf/issues/5046]
