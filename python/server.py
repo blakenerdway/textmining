@@ -2,17 +2,18 @@ from concurrent import futures
 import time
 import grpc
 
-from text_topic_generator.grpc_protos.topic_gen import topicgeneration_pb2_grpc as gen_grpc
-from text_topic_generator import test_gen
+from grpc_protos.textmining import textminingservice_pb2_grpc as gen_grpc
+from grpc_protos import test_servicer
 
 
 class GrpcServer:
-    def __init__(self, handler, port="50051"):
+    def __init__(self, port="50051"):
         self.server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
         self.host = '[::]'
         self.port = port
 
-        gen_grpc.add_TopicGenerationServicer_to_server(handler, self.server)
+        gen_grpc.add_TextMiningServicer_to_server(test_servicer.TestServicer(), self.server)
+
         self.server.add_insecure_port('[::]:' + port)
 
     def run(self):
@@ -28,5 +29,5 @@ if __name__ == '__main__':
     '''
     Test the server
     '''
-    test = GrpcServer(test_gen.TestTopicGenerator())
+    test = GrpcServer()
     test.run()

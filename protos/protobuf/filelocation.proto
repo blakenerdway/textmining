@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+option java_multiple_files = false;
+option java_package = "grpc_protos.textmining";
+option java_outer_classname = "FileLocation";
+
+package grpc_protos.textmining;
+
+// The request message of the file location
+message FileLocation {
+  string location = 1;
+}

@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+import "filelocation.proto";
+import "topicmining.proto";
+import "textsummary.proto";
+
+option java_multiple_files = false;
+option java_package = "grpc.textmining";
+option java_outer_classname = "TextMiningService";
+
+package grpc_protos.textmining;
+
+// The service definition
+service TextMining {
+  // Sends a request to get topics from a file
+  rpc GenerateTopics (FileLocation) returns (Topics) {}
+
+  // Requests a summary of the text from a file
+  rpc GenerateTextSummary (FileLocation) returns (Summary) {}
+}

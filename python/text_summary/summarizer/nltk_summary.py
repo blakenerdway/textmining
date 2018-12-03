@@ -4,11 +4,9 @@ import heapq
 
 
 class Summarizer:
-    text_to_summarize = ""
-    formatted_text = ""
 
-    def summarize_text(self, text):
-
+    @staticmethod
+    def summarize_text(text):
         # Removing Square Brackets and Extra Spaces
         text = re.sub(r'\[[0-9]*\]', ' ', text)
         text = re.sub(r'\s+', ' ', text)
@@ -46,4 +44,4 @@ class Summarizer:
                         else:
                             sentence_scores[sent] += word_frequencies[word]
 
-        return heapq.nlargest(7, sentence_scores, key=sentence_scores.get)
+        return ' '.join(heapq.nlargest(7, sentence_scores, key=sentence_scores.get))
