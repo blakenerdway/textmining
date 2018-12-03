@@ -1,8 +1,9 @@
 import bs4 as bs
 import urllib.request
-from  text_summary.nltk_summary import Summarizer
+from text_summary.nltk_summary import Summarizer
 
 if __name__ == '__main__':
+    print('in main')
     scraped_data = urllib.request.urlopen('https://en.wikipedia.org/wiki/Artificial_intelligence')
     article = scraped_data.read()
 
