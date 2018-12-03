@@ -1,7 +1,7 @@
-import text_topic_generator.server as topic_server
+import server as topic_server
 import configparser
-from . import topic_gen_model as model
-from . import text_topic_generator
+from text_topic_generator import topic_gen_model as model
+from text_topic_generator import text_topic_generator
 
 if __name__ == '__main__':
     config = configparser.ConfigParser()
