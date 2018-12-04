@@ -1,8 +1,10 @@
-<html>
+<!doctype html>
+<html lang="en">
    <head>
       <link rel="stylesheet" href="https://rawgit.com/enyo/dropzone/master/dist/dropzone.css">
       <link rel="stylesheet" type="text/css" href="/css/modal-style.css" />
       <link rel="stylesheet" type="text/css" href="/css/topic-gen-style.css" />
+      <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
 
       <script type="text/javascript" src="/animejs/anime.min.js"></script>
       <script type="text/javascript" src="/dropzone/dist/min/dropzone.min.js"></script>
@@ -17,22 +19,22 @@
          return [-pathLength, 0];
          },
          stroke: {
-         value: function(el, i) {
-           return 'rgb(200,'+ i * 8 +',150)';
-         },
-         easing: 'linear',
-         duration: 2000,
+           value: function(el, i) {
+             return 'rgb(200,'+ i * 8 +',150)';
+           },
+           easing: 'linear',
+           duration: 2000,
          },
          strokeWidth: {
-         value: 6,
-         easing: 'linear',
-         delay: function(el, i) {
-           return 1200 + (i * 40);
+           value: 6,
+           easing: 'linear',
+           delay: function(el, i) {
+             return 1200 + (i * 40);
+           },
+           duration: 800,
          },
-         duration: 800,
-         },
          delay: function(el, i) {
-         return i * 60;
+           return i * 60;
          },
          duration: 1200,
          easing: 'easeOutExpo',
@@ -53,8 +55,9 @@
              myDropzone = this; // closure
 
                submitButton.addEventListener("click", function() {
+                 test();
                  myDropzone.processQueue();
-                 // autoProcessQueue: true// Tell Dropzone to process all queued files.
+                 // Tell Dropzone to process all queued files.
                });
                this.on("maxfilesexceeded", function(file) {
                  this.removeFile(file);
@@ -71,19 +74,38 @@
                    submitButton.style.visibility = 'hidden'
 
                });
-                 this.on('success', function(file, data ){
+               this.on('success', function(file, data ){
                    console.log(data);
+                   document.getElementById("modal_content_p").innerHTML = JSON.parse(data).summary;
                    MicroModal.show('modal-1');
                    this.removeFile(this.files[0]);
-                   test();
-             });
+                 });
            }
          }
       </script>
-
    </head>
    <body>
-      <p>Here we do our summary generation</p>
+     <nav class="navbar navbar-expand-lg navbar-light bg-light">
+       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+         <span class="navbar-toggler-icon"></span>
+       </button>
+
+       <div class="collapse navbar-collapse" id="navbarSupportedContent">
+         <ul class="navbar-nav mr-auto">
+           <li class="nav-item">
+             <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
+           </li>
+           <li class="nav-item active">
+             <a class="nav-link" href="/summarygen">Summary Generation</a>
+           </li>
+           <li class="nav-item">
+           <a class="nav-link" href="/topicgen">Topic Generation</a>
+         </li>
+       </ul>
+     </div>
+   </nav>
+   <div class="container">
+      <p>Drag and drop a ".txt" file to see what the summary of it is!</p>
       <form id="dropzone" action="/summaryupload" class="dropzone" enctype="multipart/form-data">
          <div class="fallback">
             <input name="file" type="file" multiple />
@@ -131,6 +153,7 @@
             </svg>
          </article>
       </section>
+    </div>
       <div class="modal micromodal-slide" id="modal-1" aria-hidden="true">
          <div class="modal__overlay" tabindex="-1" data-micromodal-close>
             <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
@@ -141,8 +164,7 @@
                   <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
                </header>
                <main class="modal__content" id="modal-1-content">
-                  <p>
-                     Try hitting the <code>tab</code> key and notice how the focus stays within the modal itself. Also, <code>esc</code> to close modal.
+                  <p id="modal_content_p">
                   </p>
                </main>
                <footer class="modal__footer">

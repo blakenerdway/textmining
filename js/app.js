@@ -94,7 +94,6 @@ app.post("/summaryupload", upload.single('file'), function(req, res, next){
         };
 
          res.send(JSON.stringify(obj));
-         console.log('Received from python: ', response.summary);
        }
      });
 });
