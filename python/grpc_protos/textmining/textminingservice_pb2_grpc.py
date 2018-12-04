@@ -16,12 +16,12 @@ class TextMiningStub(object):
     Args:
       channel: A grpc.Channel.
     """
-    self.GenerateTopics = channel.unary_unary(
+    self.GenerateTopics = channel.stream_stream(
         '/grpc_protos.textmining.TextMining/GenerateTopics',
         request_serializer=filelocation__pb2.FileLocation.SerializeToString,
         response_deserializer=topicmining__pb2.Topics.FromString,
         )
-    self.GenerateTextSummary = channel.unary_unary(
+    self.GenerateTextSummary = channel.stream_stream(
         '/grpc_protos.textmining.TextMining/GenerateTextSummary',
         request_serializer=filelocation__pb2.FileLocation.SerializeToString,
         response_deserializer=textsummary__pb2.Summary.FromString,
@@ -32,14 +32,14 @@ class TextMiningServicer(object):
   """The service definition
   """
 
-  def GenerateTopics(self, request, context):
+  def GenerateTopics(self, request_iterator, context):
     """Sends a request to get topics from a file
     """
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
-  def GenerateTextSummary(self, request, context):
+  def GenerateTextSummary(self, request_iterator, context):
     """Requests a summary of the text from a file
     """
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -49,12 +49,12 @@ class TextMiningServicer(object):
 
 def add_TextMiningServicer_to_server(servicer, server):
   rpc_method_handlers = {
-      'GenerateTopics': grpc.unary_unary_rpc_method_handler(
+      'GenerateTopics': grpc.stream_stream_rpc_method_handler(
           servicer.GenerateTopics,
           request_deserializer=filelocation__pb2.FileLocation.FromString,
           response_serializer=topicmining__pb2.Topics.SerializeToString,
       ),
-      'GenerateTextSummary': grpc.unary_unary_rpc_method_handler(
+      'GenerateTextSummary': grpc.stream_stream_rpc_method_handler(
           servicer.GenerateTextSummary,
           request_deserializer=filelocation__pb2.FileLocation.FromString,
           response_serializer=textsummary__pb2.Summary.SerializeToString,

@@ -6,7 +6,12 @@ option java_outer_classname = "Topics";
 
 package grpc_protos.textmining;
 
-// Topics that are generated
 message Topics {
-  repeated string topics = 1;
+  repeated TopicDistribution topics = 1;
+}
+
+// Topics that are generated
+message TopicDistribution {
+  repeated string words = 1;
+  double coverage= 2;
 }

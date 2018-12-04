@@ -1,0 +1,10 @@
+#summary-list-ul {
+  list-style-type:none;
+}
+
+.modal__container {
+  max-height:50vh;
+  max-width:700px;
+  min-height:50vh;
+  min-width:700px;
+}

@@ -13,8 +13,8 @@ package grpc_protos.textmining;
 // The service definition
 service TextMining {
   // Sends a request to get topics from a file
-  rpc GenerateTopics (FileLocation) returns (Topics) {}
+  rpc GenerateTopics (stream FileLocation) returns (stream Topics) {}
 
   // Requests a summary of the text from a file
-  rpc GenerateTextSummary (FileLocation) returns (Summary) {}
+  rpc GenerateTextSummary (stream FileLocation) returns (stream Summary) {}
 }

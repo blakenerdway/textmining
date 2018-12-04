@@ -22,7 +22,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='grpc_protos.textmining',
   syntax='proto3',
   serialized_options=_b('\n\017grpc.textminingB\021TextMiningServiceP\000'),
-  serialized_pb=_b('\n\x17textminingservice.proto\x12\x16grpc_protos.textmining\x1a\x12\x66ilelocation.proto\x1a\x11topicmining.proto\x1a\x11textsummary.proto2\xc6\x01\n\nTextMining\x12X\n\x0eGenerateTopics\x12$.grpc_protos.textmining.FileLocation\x1a\x1e.grpc_protos.textmining.Topics\"\x00\x12^\n\x13GenerateTextSummary\x12$.grpc_protos.textmining.FileLocation\x1a\x1f.grpc_protos.textmining.Summary\"\x00\x42&\n\x0fgrpc.textminingB\x11TextMiningServiceP\x00\x62\x06proto3')
+  serialized_pb=_b('\n\x17textminingservice.proto\x12\x16grpc_protos.textmining\x1a\x12\x66ilelocation.proto\x1a\x11topicmining.proto\x1a\x11textsummary.proto2\xce\x01\n\nTextMining\x12\\\n\x0eGenerateTopics\x12$.grpc_protos.textmining.FileLocation\x1a\x1e.grpc_protos.textmining.Topics\"\x00(\x01\x30\x01\x12\x62\n\x13GenerateTextSummary\x12$.grpc_protos.textmining.FileLocation\x1a\x1f.grpc_protos.textmining.Summary\"\x00(\x01\x30\x01\x42&\n\x0fgrpc.textminingB\x11TextMiningServiceP\x00\x62\x06proto3')
   ,
   dependencies=[filelocation__pb2.DESCRIPTOR,topicmining__pb2.DESCRIPTOR,textsummary__pb2.DESCRIPTOR,])
 
@@ -40,7 +40,7 @@ _TEXTMINING = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   serialized_start=110,
-  serialized_end=308,
+  serialized_end=316,
   methods=[
   _descriptor.MethodDescriptor(
     name='GenerateTopics',

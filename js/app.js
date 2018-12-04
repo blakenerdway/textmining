@@ -29,6 +29,8 @@ var storage = multer.diskStorage({
   }
 });
 
+var uploadMultiple = multer({storage : storage}).array('files', 10)
+
 var upload = multer({storage: storage });
 
 var PROTO_PATH = '../protos/protobuf/textminingservice.proto';
@@ -60,7 +62,7 @@ app.get('/topicgen', function(req, res){
 
 app.post("/topicupload", upload.single('file'), function(req, res, next){
      var loc = {location: __dirname + "/" + req.file.path};
-     client.GenerateTopics(loc, function(err, response) {
+     var call = client.GenerateTopics(loc, function(err, response) {
        if (err){
          console.log(err);
        }
@@ -81,21 +83,23 @@ app.get('/summarygen', function(req, res){
   res.render('summarygen', {title: 'Summary generation'});
 });
 
-app.post("/summaryupload", upload.single('file'), function(req, res, next){
-    console.log(__dirname);
-     var loc = {location: __dirname + "/" + req.file.path};
-     client.GenerateTextSummary(loc, function(err, response) {
-       if (err){
-         console.log(err);
-       }
-       if (response) {
-         var obj = {
-           summary: response.summary
-        };
+app.post("/summaryupload", upload.array("file"), function(req, res, next){
+    var filesUploaded = req.files.length;
+    var call = client.GenerateTextSummary();
+    var summaries = new Array()
+    call.on('data', function(summaryObj) {
+      summaries.push(summaryObj.summary);
 
-         res.send(JSON.stringify(obj));
-       }
-     });
+      if (summaries.length == filesUploaded){
+        res.send(JSON.stringify(summaries))
+      }
+    });
+
+    for (var i = 0; i < filesUploaded; i++){
+      var loc = {location: __dirname + "/" + req.files[i].path};
+      call.write(loc)
+    }
+
 });
 
 // Listen on port 3000

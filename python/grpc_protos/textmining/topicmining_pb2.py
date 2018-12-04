@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='grpc_protos.textmining',
   syntax='proto3',
   serialized_options=_b('\n\"grpc_protos.textmining.topicminingB\006TopicsP\000'),
-  serialized_pb=_b('\n\x11topicmining.proto\x12\x16grpc_protos.textmining\"\x18\n\x06Topics\x12\x0e\n\x06topics\x18\x01 \x03(\tB.\n\"grpc_protos.textmining.topicminingB\x06TopicsP\x00\x62\x06proto3')
+  serialized_pb=_b('\n\x11topicmining.proto\x12\x16grpc_protos.textmining\"C\n\x06Topics\x12\x39\n\x06topics\x18\x01 \x03(\x0b\x32).grpc_protos.textmining.TopicDistribution\"4\n\x11TopicDistribution\x12\r\n\x05words\x18\x01 \x03(\t\x12\x10\n\x08\x63overage\x18\x02 \x01(\x01\x42.\n\"grpc_protos.textmining.topicminingB\x06TopicsP\x00\x62\x06proto3')
 )
 
 
@@ -34,7 +34,7 @@ _TOPICS = _descriptor.Descriptor(
   fields=[
     _descriptor.FieldDescriptor(
       name='topics', full_name='grpc_protos.textmining.Topics.topics', index=0,
-      number=1, type=9, cpp_type=9, label=3,
+      number=1, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -52,10 +52,50 @@ _TOPICS = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=45,
-  serialized_end=69,
+  serialized_end=112,
 )
 
+
+_TOPICDISTRIBUTION = _descriptor.Descriptor(
+  name='TopicDistribution',
+  full_name='grpc_protos.textmining.TopicDistribution',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='words', full_name='grpc_protos.textmining.TopicDistribution.words', index=0,
+      number=1, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='coverage', full_name='grpc_protos.textmining.TopicDistribution.coverage', index=1,
+      number=2, type=1, cpp_type=5, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=114,
+  serialized_end=166,
+)
+
+_TOPICS.fields_by_name['topics'].message_type = _TOPICDISTRIBUTION
 DESCRIPTOR.message_types_by_name['Topics'] = _TOPICS
+DESCRIPTOR.message_types_by_name['TopicDistribution'] = _TOPICDISTRIBUTION
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 Topics = _reflection.GeneratedProtocolMessageType('Topics', (_message.Message,), dict(
@@ -64,6 +104,13 @@ Topics = _reflection.GeneratedProtocolMessageType('Topics', (_message.Message,),
   # @@protoc_insertion_point(class_scope:grpc_protos.textmining.Topics)
   ))
 _sym_db.RegisterMessage(Topics)
+
+TopicDistribution = _reflection.GeneratedProtocolMessageType('TopicDistribution', (_message.Message,), dict(
+  DESCRIPTOR = _TOPICDISTRIBUTION,
+  __module__ = 'topicmining_pb2'
+  # @@protoc_insertion_point(class_scope:grpc_protos.textmining.TopicDistribution)
+  ))
+_sym_db.RegisterMessage(TopicDistribution)
 
 
 DESCRIPTOR._options = None
