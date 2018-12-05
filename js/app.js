@@ -60,25 +60,32 @@ app.get('/topicgen', function(req, res){
   res.render('topicgen', {title: 'Topic generation'});
 });
 
-app.post("/topicupload", upload.single('file'), function(req, res, next){
-     var loc = {location: __dirname + "/" + req.file.path};
-     var call = client.GenerateTopics(loc, function(err, response) {
-       if (err){
-         console.log(err);
-       }
-       if (response) {
-         var obj = {
-           topics: response.topics
-        };
+app.post("/topicupload", upload.array("file"), function(req, res, next){
+  var filesUploaded = req.files.length;
+  var call = client.GenerateTopics();
+  var topicsByDoc = new Array();
 
-         res.send(JSON.stringify(obj));
-         console.log('Received from python: ', response.topics);
-       }
-     });
+  call.on('data', function(topicsObj) {
+    var topicsForDoc = {documentName:req.files[topicsByDoc.length].originalname, topics: new Array()};
+    topicsForDoc.topics = topicsObj.topics;
+
+    // Add the array of topics to the array of topics per documents
+    topicsByDoc.push(topicsForDoc);
+
+    if (topicsByDoc.length == filesUploaded){
+      var json = JSON.stringify(topicsByDoc);
+      res.send(json)
+    }
+  });
+
+  for (var i = 0; i < filesUploaded; i++){
+    var loc = {location: __dirname + "/" + req.files[i].path};
+    call.write(loc)
+  }
 });
 
 
-// Create a function at '/' that receives a GET request and returns a response
+// Create a function at '/sumnmarygen' that receives a GET request and returns a response
 app.get('/summarygen', function(req, res){
   res.render('summarygen', {title: 'Summary generation'});
 });
@@ -86,12 +93,16 @@ app.get('/summarygen', function(req, res){
 app.post("/summaryupload", upload.array("file"), function(req, res, next){
     var filesUploaded = req.files.length;
     var call = client.GenerateTextSummary();
-    var summaries = new Array()
-    call.on('data', function(summaryObj) {
-      summaries.push(summaryObj.summary);
+    var summaries = new Array();
+    call.on('data', function(summaryProto) {
+      var summaryObj = {documentName:req.files[summaries.length].originalname, summary: ""};
+      summaryObj.summary = summaryProto.summary;
+
+      summaries.push(summaryObj);
 
       if (summaries.length == filesUploaded){
-        res.send(JSON.stringify(summaries))
+        var json = JSON.stringify(summaries);
+        res.send(json);
       }
     });
 

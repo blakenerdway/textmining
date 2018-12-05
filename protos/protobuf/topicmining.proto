@@ -12,6 +12,12 @@ message Topics {
 
 // Topics that are generated
 message TopicDistribution {
-  repeated string words = 1;
-  double coverage= 2;
+  repeated WordProbability word_probability = 1;
+  double coverage = 2;
+}
+
+// Probability of a word occurring in a TopicDistribution
+message WordProbability {
+  string word = 1;
+  double probability = 2;
 }

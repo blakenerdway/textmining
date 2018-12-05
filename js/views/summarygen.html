@@ -88,38 +88,45 @@
                    submitButton.style.visibility = 'hidden'
                  }
                });
-               this.on('success', function(file, data){
-                 console.log(data);
-                 var summaries = JSON.parse(data);
+               this.on('successmultiple', function(file, data){
+                 var summaryObj = JSON.parse(data);
 
                  document.getElementById("modal-1-title").innerHTML = "Summary"
                  document.getElementById("loading-section").style.display = 'none'
                  document.getElementById("waiting-content-p").style.display = 'none'
 
-                   var summaryUL = document.getElementById('summary-list-ul');
+                   var resultUL = document.getElementById('result-list-ul');
 
                    // clear the list of all the non-button values
-                   var liChildren = summaryUL.childNodes.length - 2;
+                   var liChildren = resultUL.childNodes.length;
                    for (var i = 0; i < liChildren; i++){
-                     summaryUL.removeChild(summaryUL.childNodes[1]);
+                     resultUL.removeChild(resultUL.childNodes[0]);
                    }
 
-                   for (i = 1; i <= summaries.length; i++){
-                     var summaryLI = document.createElement("LI");
-                     var summaryText = document.createElement("P")
-                     summaryText.innerHTML = summaries[i-1];
-                     summaryText.setAttribute("class", "modal-1-content-p")
-                     summaryText.setAttribute("id", "modal-1-content-p-" + i)
-                     summaryLI.appendChild(summaryText);
-                     summaryUL.insertBefore(summaryLI, summaryUL.childNodes[summaryUL.childNodes.length - 1])
+                   for (i = 1; i <= summaryObj.length; i++){
+                    var summaryText = summaryObj[i-1].summary;
+                    var documentName = summaryObj[i-1].documentName;
+
+                     var resultLI = document.createElement("LI");
+                     var documentNameH4 = document.createElement("H4");
+                     var resultText = document.createElement("P");
+
+                     documentNameH4.innerHTML = documentName;
+                     resultText.innerHTML = summaryText;
+                     resultText.setAttribute("class", "modal-1-content-p");
+                     resultText.setAttribute("id", "modal-1-content-p-" + i);
+
+                     resultLI.appendChild(documentNameH4);
+                     resultLI.appendChild(resultText);
+                     resultUL.appendChild(resultLI);
                    }
 
-                   var list = new List('summary-list',{
+                   var list = new List('result-list',{
                      valueNames:['modal-1-content-p'],
                      page: 1,
                      pagination: true
                    });
-                   this.removeFile(this.files[0]);
+                   this.removeAllFiles();
                  });
            }
          }
@@ -153,26 +160,25 @@
          </div>
       </form>
       <button type="submit" id="submitBtn" class="plus" style="visibility:hidden;">Upload</button>
-    </div>
-      <div class="modal micromodal-slide" id="modal-1" aria-hidden="true">
+   </div>
+   <div class="modal micromodal-slide" id="modal-1" aria-hidden="true">
          <div class="modal__overlay" tabindex="-1" data-micromodal-close>
             <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
-               <header class="modal__header">
+               <header class="modal__h eader">
                   <h2 class="modal__title" id="modal-1-title">
                      Generating summary
                   </h2>
-                  <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
                </header>
                <main class="modal__content" id="modal-1-content">
                     <div id="waiting-content">
                       <p id="waiting-content-p">Please wait while your summary is being generated</p>
                     </div>
-                    <div id="summary-list">
-                      <ul id="summary-list-ul" class="list">
-                        <li><a class="previous" href="#"></a></li>
-                        <li><a class="next" href="#"></a></li>
+                    <div id="result-list">
+                      <ul id="result-list-ul" class="list">
                       </ul>
-                        <ul class="pagination"></ul>
+                      <div style="margin: auto; width: 50%;">
+                        <ul class="pagination" style="margin: auto; width: 50%;" ></ul>
+                      </div>
                     </div>
                   <section id="loading-section" style="display:none;">
                      <article>
