@@ -20,7 +20,6 @@
           $("#nav-placeholder").load("/nav.html");
         });
       </script>
-
       <script type="text/javascript">
          function uploaded(){
            document.getElementById("waiting-content-p").style.display = 'block'
@@ -145,9 +144,9 @@
      <div id="nav-placeholder" ></div>
 
    <div class="container">
-      <p>On this page we use an algorithm using the NLTK library to generate a summary of the text.</p>
+      <p>On this page we use Luhn's algorithm from the Sumy library to generate a summary of the text.</p>
       <p>Drag and drop your files below!</p>
-      <form id="dropzone" action="/summary/gensimupload" class="dropzone" enctype="multipart/form-data">
+      <form id="dropzone" action="/summary/sumyupload/luhn" class="dropzone" enctype="multipart/form-data">
          <div class="fallback">
             <input name="file" type="file" multiple />
          </div>
@@ -157,7 +156,7 @@
    <div class="modal micromodal-slide" id="modal-1" aria-hidden="true">
          <div class="modal__overlay" tabindex="-1" data-micromodal-close>
             <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
-              <header class="modal__header">
+               <header class="modal__header">
                   <h2 class="modal__title" id="modal-1-title">
                      Generating summary
                   </h2>
