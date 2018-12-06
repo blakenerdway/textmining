@@ -15,7 +15,12 @@
      <link rel="stylesheet" type="text/css" href="/css/topic-gen-style.css" />
      <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
      <link rel="stylesheet" type="text/css" href="/css/liststyle.css" />
-
+     <link rel="stylesheet" type="text/css" href="/css/navbar-sub.css" />
+     <script>
+       $(function(){
+         $("#nav-placeholder").load("/nav.html");
+       });
+     </script>
 
       <script type="text/javascript">
          function uploaded(){
@@ -159,30 +164,8 @@
       </script>
    </head>
    <body>
-     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-         <span class="navbar-toggler-icon"></span>
-       </button>
-       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-         <ul class="navbar-nav mr-auto">
-           <li class="nav-item">
-             <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
-           </li>
-         <li class="nav-item dropdown">
-           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-               Summary Generation
-           </a>
-           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-             <a class="dropdown-item" href="/summary/nltksummary">NLTK</a>
-             <a class="dropdown-item" href="/summary/gensimsummary">Gensim</a>
-           </div>
-         </li>
-         <li class="nav-item active">
-           <a class="nav-link" href="/topicgen">Topic Generation</a>
-         </li>
-       </ul>
-     </div>
-   </nav>
+     <div id="nav-placeholder" ></div>
+
    <div class="container">
       <p>Drag and drop a ".txt" file to see what topics are discovered!</p>
       <form id="dropzone" action="/topicupload" class="dropzone" enctype="multipart/form-data">

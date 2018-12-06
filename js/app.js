@@ -85,21 +85,30 @@ app.post("/topicupload", upload.array("file"), function(req, res, next){
 });
 
 
-// Create a function at '/sumnmarygen' that receives a GET request and returns a response
+// Create a function at '/summary/nltksummary' that receives a GET request and returns a response
 app.get('/summary/nltksummary', function(req, res){
   res.render('summary/nltksummary', {title: 'Summary generation via NLTK'});
 });
 
-// Create a function at '/sumnmarygen' that receives a GET request and returns a response
+// Create a function at '/summary/gensimsummary' that receives a GET request and returns a response
 app.get('/summary/gensimsummary', function(req, res){
   res.render('summary/gensimsummary', {title: 'Summary generation via Gensim'});
 });
 
-// Create a function at '/sumnmarygen' that receives a GET request and returns a response
-app.get('/summary/nltksummary', function(req, res){
-  res.render('summary/nltksummary', {title: 'Summary generation via PyTextRank'});
+// Create a function at '/summary/sumy/lexrank' that receives a GET request and returns a response
+app.get('/summary/sumy/lexrank', function(req, res){
+  res.render('summary/sumy/lexranksummary', {title: 'Summary generation via Sumy\'s Lex Rank'});
 });
 
+// Create a function at '/summary/sumy/lexrank' that receives a GET request and returns a response
+app.get('/summary/sumy/lsa', function(req, res){
+  res.render('summary/sumy/lsasummary', {title: 'Summary generation via Sumy\'s LSA'});
+});
+
+// Create a function at '/summary/sumy/lexrank' that receives a GET request and returns a response
+app.get('/summary/sumy/luhn', function(req, res){
+  res.render('summary/sumy/luhnsummary', {title: 'Summary generation via Sumy\'s Luhn Algorithm'});
+});
 
 app.post("/summary/nltkupload", upload.array("file"), function(req, res, next){
     summarize(req, res, "nltk");
@@ -109,8 +118,19 @@ app.post("/summary/gensimupload", upload.array("file"), function(req, res, next)
     summarize(req, res, "gensim");
 });
 
+app.post("/summary/sumyupload/lexrank", upload.array("file"), function(req, res, next){
+    summarize(req, res, "sumy.lexrank");
+});
+
+app.post("/summary/sumyupload/lsa", upload.array("file"), function(req, res, next){
+    summarize(req, res, "sumy.lsa");
+});
+
+app.post("/summary/sumyupload/luhn", upload.array("file"), function(req, res, next){
+    summarize(req, res, "sumy.luhn");
+});
+
 function summarize(req, res, type){
-  console.log(type);
   var filesUploaded = req.files.length;
   var call = client.GenerateTextSummary();
   var summaries = new Array();
@@ -135,12 +155,3 @@ function summarize(req, res, type){
 
 // Listen on port 3000
 server.listen(3000, '0.0.0.0');
-
-
-function sendTopics(topics){
-  io.sockets.emit(topics); //send to all clients not the best for right now
-}
-
-function sendSummary(summary){
-
-}

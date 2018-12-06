@@ -1,8 +1,8 @@
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize, sent_tokenize
 from nltk.stem.snowball import SnowballStemmer
-import nltk
 import re
+
 
 class Summarizer:
 
