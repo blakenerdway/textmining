@@ -142,6 +142,9 @@ local.properties
 uploads/
 node_modules/
 
+data/system
+data/dataset
+data/reference
 
 # IDEA Intellij
 **/.idea/**
