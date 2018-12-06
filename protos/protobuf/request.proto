@@ -6,7 +6,8 @@ option java_outer_classname = "FileLocation";
 
 package grpc_protos.textmining;
 
-// The request message of the file location
-message FileLocation {
-  string location = 1;
+// The request message of the file location and implementation (library) to use
+message Request {
+  string file_location = 1;
+  string implementation = 2;
 }

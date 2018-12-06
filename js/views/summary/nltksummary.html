@@ -1,16 +1,20 @@
 <!doctype html>
 <html lang="en">
    <head>
-      <link rel="stylesheet" href="https://rawgit.com/enyo/dropzone/master/dist/dropzone.css">
+
+     <script type="text/javascript" src="/list.js/dist/list.min.js"></script>
+     <script type="text/javascript" src="/animejs/anime.min.js"></script>
+     <script type="text/javascript" src="/dropzone/dist/min/dropzone.min.js"></script>
+     <script type="text/javascript" src="/micromodal/dist/micromodal.min.js"></script>
+     <script type="text/javascript" src="/jquery/dist/jquery.min.js"></script>
+     <script type="text/javascript" src="/popper.js/dist/umd/popper.min.js"></script>
+     <script type="text/javascript" src="/bootstrap/dist/js/bootstrap.min.js"></script>
+
+      <link rel="stylesheet" type="text/css" href="/dropzone/dist/dropzone.css">
       <link rel="stylesheet" type="text/css" href="/css/modal-style.css" />
       <link rel="stylesheet" type="text/css" href="/css/topic-gen-style.css" />
       <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
       <link rel="stylesheet" type="text/css" href="/css/liststyle.css" />
-
-      <script type="text/javascript" src="/list.js/dist/list.min.js"></script>
-      <script type="text/javascript" src="/animejs/anime.min.js"></script>
-      <script type="text/javascript" src="/dropzone/dist/min/dropzone.min.js"></script>
-      <script type="text/javascript" src="/micromodal/dist/micromodal.min.js"></script>
 
       <script type="text/javascript">
          function uploaded(){
@@ -137,24 +141,30 @@
        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
          <span class="navbar-toggler-icon"></span>
        </button>
-
        <div class="collapse navbar-collapse" id="navbarSupportedContent">
          <ul class="navbar-nav mr-auto">
            <li class="nav-item">
              <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
            </li>
-           <li class="nav-item active">
-             <a class="nav-link" href="/summarygen">Summary Generation</a>
-           </li>
-           <li class="nav-item">
+         <li class="nav-item dropdown active">
+           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+               Summary Generation
+           </a>
+           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+             <a class="dropdown-item" href="/summary/nltksummary">NLTK</a>
+             <a class="dropdown-item" href="/summary/gensimsummary">Gensim</a>
+           </div>
+         </li>
+         <li class="nav-item">
            <a class="nav-link" href="/topicgen">Topic Generation</a>
          </li>
        </ul>
      </div>
    </nav>
    <div class="container">
-      <p>Drag and drop a ".txt" file to see what the summary of it is!</p>
-      <form id="dropzone" action="/summaryupload" class="dropzone" enctype="multipart/form-data">
+      <p>On this page we use an algorithm using the NLTK library to generate a summary of the text.</p>
+      <p>Drag and drop your files below!</p>
+      <form id="dropzone" action="/summary/nltkupload" class="dropzone" enctype="multipart/form-data">
          <div class="fallback">
             <input name="file" type="file" multiple />
          </div>

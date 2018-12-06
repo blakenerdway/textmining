@@ -2,7 +2,6 @@ from grpc_protos.textmining import textminingservice_pb2_grpc as grpc_service
 from grpc_protos.textmining import topicmining_pb2 as topicmining
 from grpc_protos.textmining import textsummary_pb2 as textsummary
 from text_summary import summary_gen
-import time
 
 
 class TestServicer(grpc_service.TextMiningServicer):
@@ -23,11 +22,10 @@ class TestServicer(grpc_service.TextMiningServicer):
         yield topicmining.Topics(topics=[distributions[0], distributions[1]])
         yield topicmining.Topics(topics=[distributions[2]])
 
-
     def GenerateTextSummary(self, request_iterator, context):
-        for location in request_iterator:
+        for request in request_iterator:
             text = ""
-            with open(location.location) as text_file:
+            with open(request.file_location) as text_file:
                 for num, line in enumerate(text_file):
                     text += line.strip()
-            yield textsummary.Summary(summary=summary_gen.summarize(text, "nltk"))
+            yield textsummary.Summary(summary=summary_gen.summarize(text, request.implementation))

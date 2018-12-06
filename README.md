@@ -13,7 +13,7 @@ The text mining library here provides a central location for various text mining
       * [1.2.1 Python](#macos-python)
 	  * [1.2.2 NodeJS](#macos-nodejs)
   * [1.3 Windows](#windows)
- * [2. Installing](#installing) 
+ * [2. Installing](#installing)
 	 * [1.1 Python packages](#python-packages)
 	 * [1.2 Node dependencies](#node-dependencies)
  * [3. Running](#running)
@@ -41,7 +41,7 @@ sudo apt-get update
 sudo apt-get install python3.6
 ```
 At this point, you should check that your 3.6 is >=3.6.1. (`python3.6 -V`)
- 
+
 If you type `python3 -V` and  it shows that default installed version (generally 3.5) is below 3.6.1, you will need to update the default version that the OS looks for. This can be done via the following commands:
 ```
 sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.5 1
@@ -103,7 +103,7 @@ pip install grpcio-tools googleapis-common-protos
 
 **Note**: If the `googleapis-common-protos` fails with an error: `Command "python setup.py egg_info" failed with error code 1`, you will need to also do the following [pip upgrade](https://github.com/googleapis/google-cloud-python/issues/3884#issuecomment-325161411):
 
-`pip install --upgrade setuptools` 
+`pip install --upgrade setuptools`
 
 and then:
 
@@ -132,3 +132,5 @@ Now you can open a browser and go to `localhost:3000` to see the GUI. You should
 
 ## 4. Notes
 You should run the Node and Python services on the same machine so that the Python service can access the file uploaded to the server. You can connect to the server via browser from any machine you desire though.
+
+There is a known error where the Node server is killed unexpectedly. This is caused by gRPC when the server-side (in Python) is killed while the Node instance is still running after it has created a client and opened a stream to the gRPC server. (This happens when you upload documents).

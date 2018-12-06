@@ -79,39 +79,59 @@ app.post("/topicupload", upload.array("file"), function(req, res, next){
   });
 
   for (var i = 0; i < filesUploaded; i++){
-    var loc = {location: __dirname + "/" + req.files[i].path};
+    var loc = {file_location: __dirname + "/" + req.files[i].path, implementation: "nltk"};
     call.write(loc)
   }
 });
 
 
 // Create a function at '/sumnmarygen' that receives a GET request and returns a response
-app.get('/summarygen', function(req, res){
-  res.render('summarygen', {title: 'Summary generation'});
+app.get('/summary/nltksummary', function(req, res){
+  res.render('summary/nltksummary', {title: 'Summary generation via NLTK'});
 });
 
-app.post("/summaryupload", upload.array("file"), function(req, res, next){
-    var filesUploaded = req.files.length;
-    var call = client.GenerateTextSummary();
-    var summaries = new Array();
-    call.on('data', function(summaryProto) {
-      var summaryObj = {documentName:req.files[summaries.length].originalname, summary: ""};
-      summaryObj.summary = summaryProto.summary;
+// Create a function at '/sumnmarygen' that receives a GET request and returns a response
+app.get('/summary/gensimsummary', function(req, res){
+  res.render('summary/gensimsummary', {title: 'Summary generation via Gensim'});
+});
 
-      summaries.push(summaryObj);
+// Create a function at '/sumnmarygen' that receives a GET request and returns a response
+app.get('/summary/nltksummary', function(req, res){
+  res.render('summary/nltksummary', {title: 'Summary generation via PyTextRank'});
+});
 
-      if (summaries.length == filesUploaded){
-        var json = JSON.stringify(summaries);
-        res.send(json);
-      }
-    });
 
-    for (var i = 0; i < filesUploaded; i++){
-      var loc = {location: __dirname + "/" + req.files[i].path};
-      call.write(loc)
+app.post("/summary/nltkupload", upload.array("file"), function(req, res, next){
+    summarize(req, res, "nltk");
+});
+
+app.post("/summary/gensimupload", upload.array("file"), function(req, res, next){
+    summarize(req, res, "gensim");
+});
+
+function summarize(req, res, type){
+  console.log(type);
+  var filesUploaded = req.files.length;
+  var call = client.GenerateTextSummary();
+  var summaries = new Array();
+  call.on('data', function(summaryProto) {
+    var summaryObj = {documentName:req.files[summaries.length].originalname, summary: ""};
+    summaryObj.summary = summaryProto.summary;
+
+    summaries.push(summaryObj);
+
+    if (summaries.length == filesUploaded){
+      var json = JSON.stringify(summaries);
+      res.send(json);
     }
+  });
 
-});
+  for (var i = 0; i < filesUploaded; i++){
+    var protoreq = {file_location: __dirname + "/" + req.files[i].path, implementation: type};
+    call.write(protoreq);
+  }
+  call.end();
+}
 
 // Listen on port 3000
 server.listen(3000, '0.0.0.0');

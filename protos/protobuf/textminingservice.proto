@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-import "filelocation.proto";
+import "request.proto";
 import "topicmining.proto";
 import "textsummary.proto";
 
@@ -13,8 +13,8 @@ package grpc_protos.textmining;
 // The service definition
 service TextMining {
   // Sends a request to get topics from a file
-  rpc GenerateTopics (stream FileLocation) returns (stream Topics) {}
+  rpc GenerateTopics (stream Request) returns (stream Topics) {}
 
   // Requests a summary of the text from a file
-  rpc GenerateTextSummary (stream FileLocation) returns (stream Summary) {}
+  rpc GenerateTextSummary (stream Request) returns (stream Summary) {}
 }

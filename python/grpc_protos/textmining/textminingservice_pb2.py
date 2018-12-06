@@ -12,7 +12,7 @@ from google.protobuf import symbol_database as _symbol_database
 _sym_db = _symbol_database.Default()
 
 
-from . import filelocation_pb2 as filelocation__pb2
+from . import request_pb2 as request__pb2
 from . import topicmining_pb2 as topicmining__pb2
 from . import textsummary_pb2 as textsummary__pb2
 
@@ -22,9 +22,9 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='grpc_protos.textmining',
   syntax='proto3',
   serialized_options=_b('\n\017grpc.textminingB\021TextMiningServiceP\000'),
-  serialized_pb=_b('\n\x17textminingservice.proto\x12\x16grpc_protos.textmining\x1a\x12\x66ilelocation.proto\x1a\x11topicmining.proto\x1a\x11textsummary.proto2\xce\x01\n\nTextMining\x12\\\n\x0eGenerateTopics\x12$.grpc_protos.textmining.FileLocation\x1a\x1e.grpc_protos.textmining.Topics\"\x00(\x01\x30\x01\x12\x62\n\x13GenerateTextSummary\x12$.grpc_protos.textmining.FileLocation\x1a\x1f.grpc_protos.textmining.Summary\"\x00(\x01\x30\x01\x42&\n\x0fgrpc.textminingB\x11TextMiningServiceP\x00\x62\x06proto3')
+  serialized_pb=_b('\n\x17textminingservice.proto\x12\x16grpc_protos.textmining\x1a\rrequest.proto\x1a\x11topicmining.proto\x1a\x11textsummary.proto2\xc4\x01\n\nTextMining\x12W\n\x0eGenerateTopics\x12\x1f.grpc_protos.textmining.Request\x1a\x1e.grpc_protos.textmining.Topics\"\x00(\x01\x30\x01\x12]\n\x13GenerateTextSummary\x12\x1f.grpc_protos.textmining.Request\x1a\x1f.grpc_protos.textmining.Summary\"\x00(\x01\x30\x01\x42&\n\x0fgrpc.textminingB\x11TextMiningServiceP\x00\x62\x06proto3')
   ,
-  dependencies=[filelocation__pb2.DESCRIPTOR,topicmining__pb2.DESCRIPTOR,textsummary__pb2.DESCRIPTOR,])
+  dependencies=[request__pb2.DESCRIPTOR,topicmining__pb2.DESCRIPTOR,textsummary__pb2.DESCRIPTOR,])
 
 
 
@@ -39,15 +39,15 @@ _TEXTMINING = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=110,
-  serialized_end=316,
+  serialized_start=105,
+  serialized_end=301,
   methods=[
   _descriptor.MethodDescriptor(
     name='GenerateTopics',
     full_name='grpc_protos.textmining.TextMining.GenerateTopics',
     index=0,
     containing_service=None,
-    input_type=filelocation__pb2._FILELOCATION,
+    input_type=request__pb2._REQUEST,
     output_type=topicmining__pb2._TOPICS,
     serialized_options=None,
   ),
@@ -56,7 +56,7 @@ _TEXTMINING = _descriptor.ServiceDescriptor(
     full_name='grpc_protos.textmining.TextMining.GenerateTextSummary',
     index=1,
     containing_service=None,
-    input_type=filelocation__pb2._FILELOCATION,
+    input_type=request__pb2._REQUEST,
     output_type=textsummary__pb2._SUMMARY,
     serialized_options=None,
   ),
