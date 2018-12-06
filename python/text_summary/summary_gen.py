@@ -10,9 +10,9 @@ def summarize(text="", type="nltk"):
         return nltk_snowball_sum.Summarizer.summarize_text(text)
     elif type == "gensim":
         return gensim_sum.Summarizer.summarize_text(text)
-    elif type == "sumy.lexrank":
+    elif type == "lexrank":
         return sumy_lex_sum.Summarizer.summarize_text(text)
-    elif type == "sumy.lsa":
+    elif type == "lsa":
         return sumy_lsa_sum.Summarizer.summarize_text(text)
-    elif type == "sumy.luhn":
+    elif type == "luhn":
         return sumy_luhn_sum.Summarizer.summarize_text(text)

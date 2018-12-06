@@ -119,15 +119,15 @@ app.post("/summary/gensimupload", upload.array("file"), function(req, res, next)
 });
 
 app.post("/summary/sumyupload/lexrank", upload.array("file"), function(req, res, next){
-    summarize(req, res, "sumy.lexrank");
+    summarize(req, res, "lexrank");
 });
 
 app.post("/summary/sumyupload/lsa", upload.array("file"), function(req, res, next){
-    summarize(req, res, "sumy.lsa");
+    summarize(req, res, "lsa");
 });
 
 app.post("/summary/sumyupload/luhn", upload.array("file"), function(req, res, next){
-    summarize(req, res, "sumy.luhn");
+    summarize(req, res, "luhn");
 });
 
 function summarize(req, res, type){
