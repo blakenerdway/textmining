@@ -134,3 +134,5 @@ Now you can open a browser and go to `localhost:3000` to see the GUI. You should
 You should run the Node and Python services on the same machine so that the Python service can access the file uploaded to the server. You can connect to the server via browser from any machine you desire though.
 
 There is a known error where the Node server is killed unexpectedly. This is caused by gRPC when the server-side (in Python) is killed while the Node instance is still running after it has created a client and opened a stream to the gRPC server. (This happens when you upload documents).
+
+To test, move the the python/ directory. Then type `python3 -m text_summary.run_tests` or `python -m text_summary.run_tests`

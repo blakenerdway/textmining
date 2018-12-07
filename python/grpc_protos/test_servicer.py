@@ -7,7 +7,7 @@ sys.path.append('../')
 from text_summary import summary_gen
 
 
-class TestServicer(grpc_service.TextMiningServicer):
+class Servicer(grpc_service.TextMiningServicer):
     def GenerateTopics(self, request_iterator, context):
         distributions = [topicmining.TopicDistribution(word_probability=
                                                        [topicmining.WordProbability(word="hello", probability=.5),

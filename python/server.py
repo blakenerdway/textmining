@@ -12,7 +12,7 @@ class GrpcServer:
         self.host = '[::]'
         self.port = port
 
-        gen_grpc.add_TextMiningServicer_to_server(test_servicer.TestServicer(), self.server)
+        gen_grpc.add_TextMiningServicer_to_server(test_servicer.Servicer(), self.server)
 
         self.server.add_insecure_port('[::]:' + port)
 
