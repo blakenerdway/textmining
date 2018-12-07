@@ -1,8 +1,8 @@
-import text_summary.summarizer.nltk_snowball_summarizer as nltk_snowball_sum
-import text_summary.summarizer.gensim_summarizer as gensim_sum
-import text_summary.summarizer.sumy.lex_rank_summarizer as sumy_lex_sum
-import text_summary.summarizer.sumy.lsa_summarizer as sumy_lsa_sum
-import text_summary.summarizer.sumy.luhn_summarizer as sumy_luhn_sum
+from .summarizer import nltk_snowball_summarizer as nltk_snowball_sum
+from .summarizer import gensim_summarizer as gensim_sum
+from .summarizer.sumy import lex_rank_summarizer as sumy_lex_sum
+from .summarizer.sumy import lsa_summarizer as sumy_lsa_sum
+from .summarizer.sumy import luhn_summarizer as sumy_luhn_sum
 
 
 def summarize(text="", type="nltk"):

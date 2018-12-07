@@ -1,4 +1,4 @@
-from text_summary import summary_gen
+import summary_gen # ignore
 import sys
 import os
 from pathlib import Path

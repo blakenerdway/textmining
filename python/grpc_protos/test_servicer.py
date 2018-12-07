@@ -1,6 +1,9 @@
-from grpc_protos.textmining import textminingservice_pb2_grpc as grpc_service
-from grpc_protos.textmining import topicmining_pb2 as topicmining
-from grpc_protos.textmining import textsummary_pb2 as textsummary
+from .textmining import textminingservice_pb2_grpc as grpc_service
+from .textmining import topicmining_pb2 as topicmining
+from .textmining import textsummary_pb2 as textsummary
+
+import sys
+sys.path.append('../')
 from text_summary import summary_gen
 
 
