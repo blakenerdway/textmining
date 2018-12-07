@@ -1,8 +1,10 @@
 from text_summary import summary_gen
 import sys
-import os
+import csv
 from pathlib import Path
 import io
+import time
+import os
 
 
 class RunTests:
@@ -32,12 +34,22 @@ if __name__ == "__main__":
     impl = ["nltk", "gensim", "lexrank", "lsa", "luhn"]
 
     files = Path(input_dir).glob('**/*.txt.data')
-    for path in files:
-        string_path = str(path)
-        name = RunTests().get_file_name(path)
 
-        print(name)
-        with io.open(string_path, 'r', encoding='windows-1252') as file_text:
-            file_str = file_text.read()
-            for system in impl:
-                RunTests().create_summary(file_str, system, output_dir, name)
+    curr_dir = os.path.dirname(os.path.abspath(__file__)) + "/"
+    with open(curr_dir + 'summary_time_results.csv', mode='w') as result_file:
+        field_names = ['original_file_name', 'toolkit', 'time_taken']
+        result_writer = csv.DictWriter(result_file, fieldnames=field_names)
+        result_writer.writeheader()
+        for path in files:
+            string_path = str(path)
+            name = RunTests().get_file_name(path)
+
+            print(name)
+            with io.open(string_path, 'r', encoding='windows-1252') as file_text:
+                file_str = file_text.read()
+                for system in impl:
+                    start_time = time.time()
+                    RunTests().create_summary(file_str, system, output_dir, name)
+                    result_writer.writerow({'original_file_name': name,
+                                            'toolkit': system,
+                                            'time_taken': str(time.time() - start_time)})
