@@ -1,4 +1,4 @@
-import summary_gen # ignore
+from text_summary import summary_gen
 import sys
 import os
 from pathlib import Path
@@ -27,7 +27,7 @@ class RunTests:
 
 if __name__ == "__main__":
     if len(sys.argv) == 1 or len(sys.argv) == 2:
-        print("Usage: {} input dir".format(sys.argv[0]))
+        print("Usage: \"python -m text_summary.run_tests <input dir> <output dir>\"")
         sys.exit(1)
 
     input_dir = sys.argv[1]
