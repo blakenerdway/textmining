@@ -142,9 +142,9 @@ local.properties
 uploads/
 node_modules/
 
-data/system
-data/dataset
-data/reference
+data/opinion-dataset
+data/original
+data/results
 
 # IDEA Intellij
 **/.idea/**
