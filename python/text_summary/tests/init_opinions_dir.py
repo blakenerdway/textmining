@@ -1,6 +1,5 @@
-import test_util
+from text_summary.tests import test_util
 import os
-import io
 from pathlib import Path
 import shutil
 

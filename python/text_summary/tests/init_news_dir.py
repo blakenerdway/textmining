@@ -1,7 +1,5 @@
-import test_util
 import os
 import csv
-import shutil
 
 
 def init_dirs(news_file, data_dir, results_dir):
