@@ -1,10 +1,11 @@
 from text_summary import summary_gen
 import sys
 import csv
-from pathlib import Path
+import glob
 import io
 import time
 import os
+import re
 from text_summary.tests import test_util
 
 
@@ -24,6 +25,21 @@ class RunTests:
         return file_arr[len(file_arr) - 1].replace("_", "-")
 
 
+def print_progress(count, total_count):
+    progress_ratio = count / total_count
+    progress_str = ''
+    for i in range(1, 20):
+        if i / 20 <= progress_ratio:
+            progress_str += '='
+        else:
+            progress_str += '-'
+    string = 'File progress: ' + str(count) + ' 0[' + progress_str + ']' + str(total_count)
+    if count != total_count:
+        print(string, end='\r')
+    else:
+        print(string)
+
+
 def run(data_dir, test_set):
     input_dir = os.path.join(data_loc, "original", test_set)
     output_dir = os.path.join(data_loc, "results", test_set, "system")
@@ -32,19 +48,28 @@ def run(data_dir, test_set):
         sys.stderr.write("Call init_tests.py first")
         sys.exit(1)
 
-    impl = ["nltk", "gensim", "lexrank", "lsa", "luhn"]
+    print("Running tests for: " + test_set)
 
-    files = Path(input_dir).glob('**/*.txt')
+    impl = ["nltk", "gensim", "lexrank", "lsa", "luhn"]
+    loc = os.path.join(input_dir, '*.txt')
+
+    files = glob.glob(loc, recursive=True)
 
     with open(os.path.join(data_dir, "results", test_set + '_summary_time.csv'), mode='w') as result_file:
         field_names = ['original_file_name', 'toolkit', 'time_taken']
         result_writer = csv.DictWriter(result_file, fieldnames=field_names)
         result_writer.writeheader()
+        counter = 0
+        total_count = len(files)
+        string = ''
         for path in files:
+            counter += 1
             string_path = str(path)
             name = RunTests().get_file_name(path)
 
-            with io.open(string_path, 'r', encoding='windows-1252') as file_text:
+            print_progress(counter, total_count)
+
+            with io.open(string_path, 'r', encoding='ISO-8859-1') as file_text:
                 file_str = file_text.read()
                 for system in impl:
                     start_time = time.time()
@@ -54,8 +79,7 @@ def run(data_dir, test_set):
                                                 'toolkit': system,
                                                 'time_taken': str(time.time() - start_time)})
                     except Exception:
-                        print("Failed to summarize doc: " + name + " using " + system)
-
+                        pass
 
 if __name__ == "__main__":
     curr_dir = os.getcwd()
