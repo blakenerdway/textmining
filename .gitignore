@@ -146,6 +146,10 @@ data/opinion-dataset
 data/original
 data/results
 
+#Python
+**/__pychache__/**
+**/*.pyc
+
 # IDEA Intellij
 **/.idea/**
 
