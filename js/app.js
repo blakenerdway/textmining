@@ -55,35 +55,6 @@ app.get('/', function(req, res) {
     res.render('index', {title: 'Home'});
 });
 
-// Create a function at '/topicgen' that receives a GET request and returns a response
-app.get('/topicgen', function(req, res){
-  res.render('topicgen', {title: 'Topic generation'});
-});
-
-app.post("/topicupload", upload.array("file"), function(req, res, next){
-  var filesUploaded = req.files.length;
-  var call = client.GenerateTopics();
-  var topicsByDoc = new Array();
-
-  call.on('data', function(topicsObj) {
-    var topicsForDoc = {documentName:req.files[topicsByDoc.length].originalname, topics: new Array()};
-    topicsForDoc.topics = topicsObj.topics;
-
-    // Add the array of topics to the array of topics per documents
-    topicsByDoc.push(topicsForDoc);
-
-    if (topicsByDoc.length == filesUploaded){
-      var json = JSON.stringify(topicsByDoc);
-      res.send(json)
-    }
-  });
-
-  for (var i = 0; i < filesUploaded; i++){
-    var loc = {file_location: __dirname + "/" + req.files[i].path, implementation: "nltk"};
-    call.write(loc)
-  }
-});
-
 
 // Create a function at '/summary/nltksummary' that receives a GET request and returns a response
 app.get('/summary/nltksummary', function(req, res){

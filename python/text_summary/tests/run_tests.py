@@ -81,6 +81,7 @@ def run(data_dir, test_set):
                     except Exception:
                         pass
 
+
 if __name__ == "__main__":
     curr_dir = os.getcwd()
     proj_home = test_util.get_proj_dir(curr_dir)
