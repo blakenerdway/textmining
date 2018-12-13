@@ -1,4 +1,3 @@
-
 # Text mining
 The text mining library here provides a central location for various text mining resources. Python is the language used for generating the topics, but bindings for communication to the Python service are provided for Java as well as JavaScript.
 
@@ -19,7 +18,8 @@ The text mining library here provides a central location for various text mining
  * [3. Running](#running)
 	 * [3.1 Python](#running-python)
 	 * [3.2 Node](#running-node)
- * [4. Notes](#notes)
+ * [4. Tests](#tests)
+ * [5. Notes](#notes)
 
 
 ## 1. Requirements
@@ -129,10 +129,16 @@ In a terminal/command prompt, navigate to `<PROJ_HOME>/js` and run: `node app.js
 
 Now you can open a browser and go to `localhost:3000` to see the GUI. You should be able to connect to the server from any remote machine that has a connection to it
 
+## 4. Tests
+To test, move the the python/ directory. Then type `python3 -m text_summary.tests.run_tests` or `python -m text_summary.init_tests`
+To test, move the the python/ directory. Then type `python3 -m text_summary.tests.run_tests` or `python -m text_summary.run_tests`
 
-## 4. Notes
+This creates folders in `<proj_home>/data/results` as well as .csv files for how long the toolkits took to run. In `data/rouge.properties`, change the `proj.dir` directory to `results/news` or `results/home` (based on which one you want results for. You will also want to change the `outputFile` property in that file as well.  Next, in the `data/` directory, run `java -jar rouge2-1.2.1.jar`. The results will be a in csv file that you chose.
+
+
+## 5. Notes
 You should run the Node and Python services on the same machine so that the Python service can access the file uploaded to the server. You can connect to the server via browser from any machine you desire though.
 
 There is a known error where the Node server is killed unexpectedly. This is caused by gRPC when the server-side (in Python) is killed while the Node instance is still running after it has created a client and opened a stream to the gRPC server. (This happens when you upload documents).
 
-To test, move the the python/ directory. Then type `python3 -m text_summary.run_tests` or `python -m text_summary.run_tests`
+There is another project in here called `javagen`. This is for generating the gRPC bindings for Java. Run `gradle build` or `./gradlew build` to create the Java classes. They are copied to the `<proj_dir>/java` project.
